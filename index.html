@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Draw Diagram</title>
+
+    <link href="public/railroad-diagrams.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <style>
+      * { box-sizing: border-box; }
+      .input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+      }
+      .output-images {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 50%;
+      }
+    </style>
+
+    <textarea class="input">
+    </textarea>
+
+    <div class="output-images">
+    </div>
+
+    <script src="public/railroad-diagrams.js"></script>
+    <script type="text/javascript" src="./target/scala-2.11/draw-dictionary-fastopt.js"></script>
+
+    <script type="text/javascript">
+      var viewGenerated = false;
+
+      window.find = document.querySelector.bind(document);
+      find('.input').addEventListener('input', process, false);
+      window.addEventListener('load', process, false);
+
+      function process() {
+        var input = find('.input').value;
+        var images = find('.output-images')
+        images.innerHTML = '';
+        var parts = dd.Main().parseAll(input);
+        parts.forEach(function(part) {
+          var result = eval(part).format();
+
+          var image = document.createElement('div');
+          images.appendChild(image);
+
+          if (viewGenerated) {
+            console.log(part);
+          }
+
+          result.addTo(image);
+        });
+      }
+
+    </script>
+
+  </body>
+</html>
