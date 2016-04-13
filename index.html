@@ -26,11 +26,9 @@
       }
     </style>
 
-    <textarea class="input">
-    </textarea>
+    <textarea class="input"></textarea>
 
-    <div class="output-images">
-    </div>
+    <div class="output-images"></div>
 
     <script src="public/railroad-diagrams.js"></script>
     <script type="text/javascript" src="./target/scala-2.11/draw-dictionary-fastopt.js"></script>
@@ -38,13 +36,13 @@
     <script type="text/javascript">
       var viewGenerated = false;
 
-      window.find = document.querySelector.bind(document);
-      find('.input').addEventListener('input', process, false);
+      var $ = document.querySelector.bind(document);
+      $('.input').addEventListener('input', process, false);
       window.addEventListener('load', process, false);
 
       function process() {
-        var input = find('.input').value;
-        var images = find('.output-images')
+        var input = $('.input').value;
+        var images = $('.output-images');
         images.innerHTML = '';
         var parts = dd.Main().parseAll(input);
         parts.forEach(function(part) {
