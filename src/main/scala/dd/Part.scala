@@ -9,17 +9,17 @@ sealed trait Part {
     case Token(token) =>
       builder
         .append("Terminal('")
-        .append(token)
+        .append(escape(token))
         .append("')")
     case Ref(token) =>
       builder
         .append("NonTerminal('")
-        .append(token)
+        .append(escape(token))
         .append("')")
     case Comment(token) =>
       builder
         .append("Comment('")
-        .append(token)
+        .append(escape(token))
         .append("')")
     case Sequence(parts) =>
       builder.append("Sequence(")
@@ -39,6 +39,13 @@ sealed trait Part {
     case Rule(name, choices) =>
       Sequence(Seq(Comment(name), choices)).toDiagram(builder)
   }
+
+  private[Part] def escape(string: String): String =
+    string.flatMap {
+      case '\'' => Seq('\\', '\'')
+      case '\\' => Seq('\\', '\\')
+      case c => Seq(c)
+    }
 
 }
 
