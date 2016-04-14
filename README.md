@@ -16,7 +16,7 @@ Words enclosed by less-than and greater-than signs (`<>`) will be drawn inside s
 For example, a valid rule would be:
 
 ```
-BLAH	BLEH	[please] (what is|whats) your <name>
+BLAH	BLEH	[please] (what is|what's) your <name>
 ```
 
 This rule will generate the following diagram:
