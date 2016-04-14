@@ -40,6 +40,17 @@ You need to generate the last version of the script used to interpret the rules.
 After generating the required script (see previous section), just open `index.html`. There you can paste your rules and the appropriate diagrams will be generated and displayed on the page.
 
 
+## How it Works
+
+A given input is broken down by lines and split by tabs. The last part of the split, the one actually containing the rule, is tokenized and then parsed into an intermediate tree representation, using immutable Scala case classes. All these classes extend the *Part* trait. This tree is built with the help of a stack on the *Parser* object.
+
+Later on, this intermediate representation can be serialized to the format used by *railroad-diagrams* through the `toDiagram` method.
+
+The Scala code is converted to Javascript with *Scala.js*, and therefore can be used on the `index.html` page, which takes of care of taking the user input, passing it to the parser, and finally pipe the output to *railroad-diagrams*. The exposed Javascript API for the Scala code is available on the *Main* object.
+
+When debugging, the *Debug* object offers a function that prints the generated intermediate tree.
+
+
 ## Acknowledgments
 
 This project wouldn't be possible without:
